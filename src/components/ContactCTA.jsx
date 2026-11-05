@@ -3,45 +3,39 @@ import { FaWhatsapp } from 'react-icons/fa';
 import { HiOutlineArrowRight } from 'react-icons/hi';
 import './ContactCTA.css';
 
-// Número de WhatsApp — solo dígitos, sin espacios ni símbolos
-const WA_NUMBER = '51958902239';
-
-// Mensaje precargado que verá el cliente al abrir WhatsApp
+const WA_NUMBER  = '51958902239';
 const WA_MESSAGE = encodeURIComponent(
   'Hola, estoy interesado/a en solicitar una cotización para una página web. Me gustaría conocer sus servicios y comentarles un poco sobre mi negocio.'
 );
-
-const WA_URL  = `https://wa.me/${WA_NUMBER}?text=${WA_MESSAGE}`;
+const WA_URL   = `https://wa.me/${WA_NUMBER}?text=${WA_MESSAGE}`;
 const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfG55wWlSkQnspqfBAg20APvgtPwyyCqxdlw9282ahXNYtP3Q/viewform';
 
-const ContactCTA = () => {
-  return (
-    <section
-      className="contact-cta-section"
-      id="solicitar-cotizacion"
-      data-scroll-reveal
-    >
-      <div className="contact-cta">
-        <div className="contact-cta__content">
-          <span className="contact-cta__eyebrow">
-            EMPECEMOS POR TU IDEA
-          </span>
+const ContactCTA = () => (
+  <section
+    className="contact-cta-section"
+    id="contacto"
+    data-scroll-reveal
+  >
+    <div className="contact-cta">
+      <div className="contact-cta__content">
 
-          <h2>
-            Tu negocio tiene algo que mostrar.
-            <span> Hagámoslo visible.</span>
-          </h2>
+        <span className="contact-cta__eyebrow">EMPECEMOS POR TU IDEA</span>
 
-          <p>
-            Cuéntanos sobre tu negocio y qué quieres lograr.
-            No necesitas tener todo definido; te orientamos
-            hacia la solución más adecuada.
-          </p>
+        <h2>
+          Tu negocio tiene algo que mostrar.
+          <span> Hagámoslo visible.</span>
+        </h2>
 
-          {/* Dos canales de contacto */}
-          <div className="contact-cta__channels">
+        <p>
+          Cuéntanos sobre tu negocio y qué quieres lograr.
+          No necesitas tener todo definido; te orientamos
+          hacia la solución más adecuada.
+        </p>
 
-            {/* Canal 1 — Formulario */}
+        <div className="contact-cta__channels">
+
+          {/* Fila 1: botones juntos con separador */}
+          <div className="contact-cta__buttons-row">
             <div className="contact-cta__channel">
               <a
                 href={FORM_URL}
@@ -52,17 +46,10 @@ const ContactCTA = () => {
                 <HiOutlineArrowRight aria-hidden="true" />
                 Cuéntanos tu proyecto
               </a>
-              <small className="contact-cta__channel-note">
-                Completa el formulario y déjanos conocer tu idea.
-              </small>
             </div>
 
-            {/* Separador */}
-            <div className="contact-cta__divider" aria-hidden="true">
-              <span>o</span>
-            </div>
+            <span className="contact-cta__sep" aria-hidden="true">o</span>
 
-            {/* Canal 2 — WhatsApp */}
             <div className="contact-cta__channel">
               <a
                 href={WA_URL}
@@ -73,17 +60,32 @@ const ContactCTA = () => {
                 <FaWhatsapp aria-hidden="true" />
                 Contactar por WhatsApp
               </a>
+            </div>
+          </div>
+
+          {/* Fila 2: notas alineadas debajo de cada botón */}
+          <div className="contact-cta__notes-row">
+            <div className="contact-cta__channel">
+              <small className="contact-cta__channel-note">
+                Completa el formulario y déjanos conocer tu idea.
+              </small>
+            </div>
+
+            <span className="contact-cta__sep" aria-hidden="true" style={{visibility:'hidden'}}>o</span>
+
+            <div className="contact-cta__channel">
               <small className="contact-cta__channel-note">
                 Solo mensajes de texto. Las llamadas
                 se coordinan por este mismo canal.
               </small>
             </div>
-
           </div>
+
         </div>
+
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default ContactCTA;

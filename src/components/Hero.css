@@ -4,6 +4,8 @@
   padding: 5rem 2rem;
   max-width: 1400px;
   margin: 0 auto;
+  /* Contener el glow animado para que no cause scroll horizontal */
+  overflow: hidden;
 }
 
 /* ── Eyebrow — ahora flex para alinear icono ── */
@@ -129,7 +131,7 @@
 }
 
 @media (max-width: 640px) {
-  .hero-content h1 { font-size: 2.3rem; }
+  .hero-content h1 { font-size: 2rem; }
   .hero-buttons {
     flex-direction: column;
     width: 100%;
@@ -138,4 +140,8 @@
     width: 100%;
     text-align: center;
   }
+}
+
+@media (max-width: 400px) {
+  .hero-content h1 { font-size: 1.75rem; }
 }

@@ -58,75 +58,70 @@
   line-height: 1.8;
 }
 
-/* ── Canales: layout dos columnas con separador ── */
+/* ── Canales: botones en fila, notas en fila debajo ── */
 .contact-cta__channels {
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   gap: 0;
   margin-top: 2.5rem;
-  flex-wrap: wrap;
 }
 
-.contact-cta__channel {
+/* Fila de botones */
+.contact-cta__buttons-row {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  flex: 1 1 220px;
-  max-width: 280px;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  max-width: 660px;
 }
 
-/* Separador "o" vertical */
-.contact-cta__divider {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding-top: 0.9rem;
-  width: 60px;
+/* Separador "o" entre los dos botones */
+.contact-cta__sep {
   flex-shrink: 0;
-}
-
-.contact-cta__divider span {
+  width: 52px;
+  text-align: center;
   color: var(--text-gray);
   font-size: 0.85rem;
   font-weight: 600;
-  letter-spacing: 1px;
-  opacity: 0.55;
-  position: relative;
-  padding: 0 0.4rem;
+  opacity: 0.68;
 }
 
-.contact-cta__divider span::before,
-.contact-cta__divider span::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1px;
-  height: 28px;
-  background: rgba(0,255,225,0.18);
+/* Fila de notas debajo */
+.contact-cta__notes-row {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  max-width: 660px;
+  margin-top: 0.75rem;
 }
 
-.contact-cta__divider span::before { bottom: calc(100% + 4px); }
-.contact-cta__divider span::after  { top:    calc(100% + 4px); }
+.contact-cta__channel {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 /* ── Botón base ── */
 .contact-cta__button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
+  gap: 0.55rem;
   width: 100%;
-  padding: 0.9rem 1.6rem;
+  padding: 0.9rem 1.2rem;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 0.98rem;
+  font-size: 0.9rem;
   border: none;
   cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s;
   text-decoration: none;
   white-space: nowrap;
+  box-sizing: border-box;
 }
 
 /* Botón Formulario — turquesa outline */
@@ -161,7 +156,7 @@
 }
 
 .contact-cta__button--wa svg {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   flex-shrink: 0;
 }
 
@@ -192,40 +187,41 @@
 @media (max-width: 640px) {
   .contact-cta {
     margin: 1rem 1rem 3rem;
-    padding: 3.5rem 1.25rem;
+    padding: 3rem 1.25rem;
   }
 
-  .contact-cta__content h2 { font-size: 2rem; }
+  .contact-cta__content h2 { font-size: 1.75rem; }
 
-  /* En móvil: apilado vertical, separador horizontal */
-  .contact-cta__channels {
+  /* En móvil: columna, botones apilados */
+  .contact-cta__buttons-row {
     flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
+    gap: 0;
+    max-width: 100%;
+  }
+
+  .contact-cta__sep {
+    width: 100%;
+    padding: 0.4rem 0;
+  }
+
+  .contact-cta__notes-row {
+    flex-direction: column;
+    gap: 0;
+    max-width: 100%;
   }
 
   .contact-cta__channel {
     width: 100%;
-    max-width: 100%;
   }
 
-  .contact-cta__divider {
-    flex-direction: row;
+  .contact-cta__button {
     width: 100%;
-    padding-top: 0;
-    justify-content: center;
-    gap: 0;
+    box-sizing: border-box;
   }
 
-  .contact-cta__divider span::before,
-  .contact-cta__divider span::after {
-    width: 60px;
-    height: 1px;
-    top: 50%;
-    left: auto;
-    transform: none;
+  .contact-cta__channel-note {
+    text-align: center;
+    max-width: 100%;
+    margin-bottom: 0.5rem;
   }
-
-  .contact-cta__divider span::before { right: calc(100% + 4px); left: auto; }
-  .contact-cta__divider span::after  { left:  calc(100% + 4px); }
 }
