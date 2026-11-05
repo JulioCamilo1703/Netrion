@@ -5,6 +5,7 @@
   width: 100%;
   background-color: rgba(4, 13, 30, 0.92);
   backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   z-index: 1000;
   border-bottom: 1px solid rgba(0, 255, 225, 0.18);
   box-shadow: 0 2px 20px rgba(0,255,225,0.07);
@@ -33,6 +34,9 @@
 .logo-img {
   height: 48px;
   width: auto;
+  max-width: 160px;      /* evita que se estire en móvil */
+  object-fit: contain;   /* nunca distorsiona la proporción */
+  flex-shrink: 0;
 }
 
 /* ── Nav ── */
@@ -230,4 +234,13 @@
 @media (max-width: 400px) {
   .header-container { padding: 0.9rem 1rem; }
   .logo-img { height: 40px; }
+}
+
+/* Móvil: blur más ligero para ahorrar GPU */
+@media (max-width: 768px) {
+  .header {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    background-color: rgba(4, 13, 30, 0.97);
+  }
 }

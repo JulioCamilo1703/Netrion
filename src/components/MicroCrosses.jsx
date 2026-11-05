@@ -28,6 +28,9 @@ const MicroCrosses = () => {
     const COLORS_DARK  = ['#00FFE1', '#00CFC8', '#66FFF0', '#00F5B8', '#00B8D9'];
     const COLORS_LIGHT = ['#009B94', '#00B8B0', '#007A80', '#00A8D0', '#00909A'];
 
+    // Respetar preferencia de accesibilidad — no animar si el usuario lo pidió
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     const isMobile = W < 768;
     const COUNT = isMobile
       ? Math.min(50, Math.floor((W * H) / 18000))   // móvil: mitad de partículas
@@ -138,6 +141,17 @@ const MicroCrosses = () => {
 
     raf = requestAnimationFrame(draw);
 
+    // Pausar cuando la pestaña/app no es visible — ahorra batería
+    const onVisibility = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(raf);
+      } else {
+        lastTime = 0;
+        raf = requestAnimationFrame(draw);
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+
     let resizeTimer;
     const onResize = () => {
       // Debounce para ignorar cambios menores (barra del navegador móvil)
@@ -163,6 +177,7 @@ const MicroCrosses = () => {
       cancelAnimationFrame(raf);
       clearTimeout(resizeTimer);
       window.removeEventListener('resize', onResize);
+      document.removeEventListener('visibilitychange', onVisibility);
     };
   }, []);
 

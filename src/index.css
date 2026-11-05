@@ -81,7 +81,15 @@ body {
   background-color: var(--bg-main);
   color: var(--white);
   overflow-x: hidden;
+  /* Evita scroll horizontal en móvil */
+  width: 100%;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Bloquear scroll horizontal también en html */
+html {
+  overflow-x: hidden;
+  width: 100%;
 }
 
 a {
@@ -181,4 +189,10 @@ ul {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   [data-scroll-reveal] { opacity: 1; transform: none; transition: none; }
+  /* Apagar todas las animaciones CSS del sitio */
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
