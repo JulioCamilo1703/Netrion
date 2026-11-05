@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+
+/* =========================================
+   TOKENS — Paleta turquesa / aqua
+   Modo oscuro (por defecto)
+========================================= */
+:root {
+  /* Colores base */
+  --primary:    #040d1e;
+  --secondary:  #0a2545;
+  --bg-main:    #040d1e;
+  --white:      #e8f4f8;
+  --text-gray:  #8dafc4;
+
+  /* Paleta turquesa */
+  --accent:   #00FFE1;   /* Turquesa eléctrico */
+  --accent2:  #00CFC8;   /* Cian turquesa */
+  --accent3:  #00F5B8;   /* Aguamarina neón */
+  --accent4:  #00BFAF;   /* Verde turquesa */
+  --accent5:  #00B8D9;   /* Cian luminoso */
+  --accent6:  #66FFF0;   /* Aqua hielo */
+  --t1: var(--accent);
+
+  /* Gradientes */
+  --grad-main:  linear-gradient(135deg, #00FFE1 0%, #00CFC8 100%);
+  --grad-aqua:  linear-gradient(135deg, #66FFF0 0%, #00F5B8 100%);
+  --grad-deep:  linear-gradient(135deg, #00B8D9 0%, #00BFAF 100%);
+
+  /* Alias para compatibilidad con archivos de componentes */
+  --grad-cyan-green:    var(--grad-main);
+  --grad-violet-cyan:   var(--grad-aqua);
+  --grad-orange-cyan:   var(--grad-deep);
+
+  /* Header */
+  --header-height: calc(60px + 2.4rem + 1px);
+}
+
+/* =========================================
+   TOKENS — Modo claro
+========================================= */
+[data-theme="light"] {
+  --primary:   #f7fafc;
+  --secondary: #eaf1f4;
+  --bg-main:   #f7fafc;
+  --white:     #19313e;
+  --text-gray: #526a76;
+
+  --accent:  #0f7884;
+  --accent2: #176c83;
+  --accent3: #168779;
+  --accent4: #087b72;
+  --accent5: #176c83;
+  --accent6: #2b8995;
+  --t1: var(--accent);
+
+  --grad-main: linear-gradient(135deg, #0f7884 0%, #176c83 100%);
+  --grad-aqua: linear-gradient(135deg, #168779 0%, #176c83 100%);
+  --grad-deep: linear-gradient(135deg, #176c83 0%, #087b72 100%);
+
+  --grad-cyan-green:  var(--grad-main);
+  --grad-violet-cyan: var(--grad-aqua);
+  --grad-orange-cyan: var(--grad-deep);
+}
+
+/* =========================================
+   RESET & BASE
+========================================= */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + 1rem);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--bg-main);
+  color: var(--white);
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+/* =========================================
+   BOTÓN PRIMARIO — relleno degradado
+========================================= */
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2rem;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #040d1e;
+  background: var(--grad-main);
+  background-size: 200% 200%;
+  border: none;
+  cursor: pointer;
+  transition: background-position 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 18px rgba(0,255,225,0.5), 0 0 32px rgba(0,207,200,0.2);
+  animation: btnPulse 3s ease-in-out infinite;
+}
+
+.btn-primary:hover {
+  background-position: right center;
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 0 28px rgba(0,255,225,0.7), 0 0 50px rgba(0,207,200,0.4);
+}
+
+@keyframes btnPulse {
+  0%, 100% { box-shadow: 0 0 18px rgba(0,255,225,0.5), 0 0 32px rgba(0,207,200,0.2); }
+  50%       { box-shadow: 0 0 30px rgba(0,255,225,0.8), 0 0 55px rgba(0,207,200,0.4); }
+}
+
+/* =========================================
+   BOTÓN SECUNDARIO — outline celeste
+========================================= */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2rem;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--accent);
+  background: transparent;
+  border: 2px solid var(--accent);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0,255,225,0.2), inset 0 0 10px transparent;
+}
+
+.btn-secondary:hover {
+  background: rgba(0,255,225,0.08);
+  box-shadow: 0 0 22px rgba(0,255,225,0.5), inset 0 0 15px rgba(0,255,225,0.07);
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   ANIMACIONES SCROLL REVEAL
+========================================= */
+[data-scroll-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 0.5s ease var(--reveal-delay, 0ms),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+}
+
+/* Al re-entrar desde arriba (scroll hacia arriba), el elemento baja desde -28px */
+[data-scroll-reveal].scroll-reveal--from-above {
+  transform: translate3d(0, -28px, 0);
+}
+
+[data-scroll-reveal].is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+[data-scroll-reveal].scroll-reveal--no-transition {
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  [data-scroll-reveal] { opacity: 1; transform: none; transition: none; }
+}

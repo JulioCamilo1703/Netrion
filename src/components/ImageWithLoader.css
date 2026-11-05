@@ -1,0 +1,99 @@
+
+/* Contenedor de la imagen */
+.image-loader {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: rgba(18, 83, 88, 0.12);
+}
+
+/* Permite usar el cargador con imágenes como el logo */
+.image-loader.image-loader--inline {
+  display: inline-block;
+  width: auto;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+/* Imagen */
+.image-loader__image {
+  position: relative;
+  z-index: 1;
+  display: block;
+  max-width: 100%;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+/* Las imágenes normales ocupan el ancho del contenedor */
+.image-loader:not(.image-loader--inline)
+  > .image-loader__image {
+  width: 100%;
+  height: auto;
+}
+
+/* La imagen aparece cuando termina de cargar */
+.image-loader__image.is-loaded {
+  opacity: 1;
+}
+
+/* Esqueleto animado */
+.image-loader__placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    100deg,
+    rgba(18, 83, 88, 0.12) 20%,
+    rgba(59, 135, 140, 0.28) 40%,
+    rgba(18, 83, 88, 0.12) 60%
+  );
+  background-size: 200% 100%;
+  animation: image-loader-shimmer 1.5s ease-in-out infinite;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+/* Ocultar el esqueleto sin un salto visual */
+.image-loader__placeholder.is-hidden {
+  opacity: 0;
+}
+
+/* Si la imagen falla, mostramos un reemplazo */
+.image-loader__placeholder.has-error {
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(18, 83, 88, 0.12);
+  color: var(--text-gray);
+  font-size: 0.8rem;
+  text-align: center;
+  overflow-wrap: anywhere;
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes image-loader-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: -100% 0;
+  }
+}
+
+/* Respetar las preferencias de movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .image-loader__placeholder {
+    animation: none;
+  }
+
+  .image-loader__image,
+  .image-loader__placeholder {
+    transition: none;
+  }
+}

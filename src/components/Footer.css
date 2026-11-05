@@ -1,0 +1,214 @@
+/* ── Footer ─────────────────────────────────── */
+.footer-section {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid rgba(0, 255, 225, 0.12);
+  padding: 5rem 2rem 2rem;
+  margin-top: 4rem;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto 3.5rem;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 3rem;
+}
+
+/* ── Col brand ── */
+.footer-col--brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra la imagen y las redes sociales horizontalmente */
+  text-align: center;
+  gap: 1.1rem;
+}
+
+.footer-logo {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+  object-position: center; /* Asegura que el logo quede perfectamente centrado */
+}
+
+.footer-tagline {
+  color: var(--text-gray);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  max-width: 280px;
+}
+
+/* ── Redes ── */
+.footer-socials {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+  flex-wrap: wrap;
+  justify-content: center; /* Centra también los íconos en caso de salto de línea */
+}
+
+.footer-socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 255, 225, 0.18);
+  background: rgba(0, 255, 225, 0.05);
+  color: var(--accent);
+  font-size: 1.1rem;
+  transition: background 0.25s, border-color 0.25s, transform 0.25s;
+}
+
+.footer-socials a:hover {
+  background: rgba(0, 255, 225, 0.14);
+  border-color: rgba(0, 255, 225, 0.4);
+  transform: translateY(-3px);
+}
+
+/* ── Columnas nav / contacto ── */
+.footer-col__title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.2rem;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.footer-links li a,
+.footer-links li span {
+  color: var(--text-gray);
+  font-size: 0.9rem;
+  transition: color 0.2s;
+  /* Añadido para evitar quiebres extraños de palabras largas */
+  word-break: break-word; 
+}
+
+.footer-links li a:hover {
+  color: var(--white);
+}
+
+/* ── CTA contacto ── */
+.footer-cta {
+  display: inline-block;
+  margin-top: 1.4rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 255, 225, 0.3);
+  background: rgba(0, 255, 225, 0.06);
+  color: var(--accent);
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: background 0.25s, border-color 0.25s, transform 0.25s;
+}
+
+.footer-cta:hover {
+  background: rgba(0, 255, 225, 0.13);
+  border-color: rgba(0, 255, 225, 0.5);
+  transform: translateX(3px);
+}
+
+/* ── Barra inferior ── */
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 1.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer-bottom p {
+  color: var(--text-gray);
+  font-size: 0.82rem;
+}
+
+.footer-bottom__made {
+  opacity: 0.5;
+}
+
+/* ── Light mode ── */
+[data-theme="light"] .footer-section {
+  border-top-color: rgba(0, 207, 200, 0.18);
+}
+
+[data-theme="light"] .footer-socials a {
+  border-color: rgba(0, 207, 200, 0.25);
+  background: rgba(0, 207, 200, 0.06);
+  color: #00A8A0;
+}
+
+[data-theme="light"] .footer-socials a:hover {
+  background: rgba(0, 207, 200, 0.14);
+  border-color: rgba(0, 207, 200, 0.45);
+}
+
+[data-theme="light"] .footer-col__title {
+  color: #00A8A0;
+}
+
+[data-theme="light"] .footer-links li a:hover {
+  color: #0a2a3a;
+}
+
+[data-theme="light"] .footer-cta {
+  border-color: rgba(0, 207, 200, 0.35);
+  background: rgba(0, 207, 200, 0.07);
+  color: #00A8A0;
+}
+
+[data-theme="light"] .footer-cta:hover {
+  background: rgba(0, 207, 200, 0.14);
+  border-color: rgba(0, 207, 200, 0.5);
+}
+
+[data-theme="light"] .footer-bottom {
+  border-top-color: rgba(0, 0, 0, 0.07);
+}
+
+/* ── Responsive optimizado ── */
+@media (max-width: 960px) { /* Subido ligeramente para evitar colapsos antes de tiempo en tablets */
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+  .footer-col--brand {
+    grid-column: 1 / -1;
+  }
+  .footer-tagline { 
+    max-width: 100%; 
+  }
+}
+
+@media (max-width: 540px) {
+  .footer-section {
+    padding: 3.5rem 1.25rem 1.5rem; /* Padding más cómodo en móviles pequeños */
+  }
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+  }
+  .footer-col--brand { 
+    grid-column: auto; 
+  }
+  .footer-bottom { 
+    flex-direction: column; 
+    text-align: center; 
+    justify-content: center;
+  }
+}

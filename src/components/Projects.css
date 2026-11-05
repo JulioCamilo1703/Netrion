@@ -1,0 +1,202 @@
+/* ── Sección wrapper ── */
+.projects-section {
+  position: relative;
+  z-index: 1;
+  padding: 6rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.projects-container { width: 100%; }
+
+.projects-heading {
+  max-width: 760px;
+  margin: 0 auto 3.5rem;
+  text-align: center;
+}
+
+.projects-eyebrow {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: var(--t1);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(0,255,225,0.5);
+}
+
+.projects-heading h2 {
+  margin-bottom: 1.2rem;
+  color: var(--white);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.projects-heading h2 span { color: var(--t1); }
+
+.projects-heading p {
+  max-width: 650px;
+  margin: 0 auto;
+  color: var(--text-gray);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 1.5rem;
+}
+
+/* Tarjeta con borde neón */
+.project-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(0,255,225,0.15);
+  border-radius: 16px;
+  background: linear-gradient(155deg, rgba(0,255,225,0.04), rgba(4,13,30,0.85));
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.project-card:hover {
+  border-color: var(--t1);
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(0,255,225,0.15);
+}
+
+/* ── Preview del browser ── */
+.project-preview {
+  position: relative;
+  padding: 1rem;
+  overflow: hidden;
+  background: radial-gradient(circle at 90% 10%, rgba(0,255,225,0.1), transparent 45%), #0a1628;
+}
+
+.project-browser {
+  overflow: hidden;
+  min-height: 300px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3), 0 0 20px rgba(0,255,225,0.1);
+}
+
+.project-browser__top {
+  display: flex; align-items: center; gap: 0.75rem;
+  height: 30px; padding: 0 0.6rem;
+  background: #f1f2f4;
+}
+
+.project-browser__dots { display: flex; gap: 4px; }
+
+.project-browser__dots span {
+  width: 6px; height: 6px;
+  border-radius: 50%; background: #b9bdc4;
+}
+
+.project-browser__address {
+  flex: 1; overflow: hidden; padding: 3px 10px;
+  border-radius: 4px; background: #fff;
+  color: #777e89; font-size: 0.55rem; text-align: center;
+}
+
+.project-preview__caption {
+  display: block; margin-top: 0.75rem;
+  color: rgba(0,255,225,0.5); font-size: 0.65rem;
+  font-weight: 700; letter-spacing: 1.4px; text-align: center;
+}
+
+/* ── Mockup interno de servicios ── */
+.preview-services {
+  min-height: 268px; padding: 0.8rem;
+  color: #182439; background: #f6f7f8;
+}
+
+.preview-services__nav, .preview-restaurant__nav, .preview-store__nav {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; font-size: 0.55rem;
+}
+.preview-services__nav strong { color: #125358; font-size: 0.7rem; }
+.preview-services__nav span  { color: #626b78; }
+.preview-services__body { padding: 2rem 0.3rem 0; }
+.preview-kicker { color: #398187; font-size: 0.48rem; font-weight: 800; letter-spacing: 1px; }
+.preview-services__body h3 { margin: 0.5rem 0; color: #15253c; font-size: clamp(1.4rem,2.5vw,2rem); font-weight: 800; line-height: 1.05; }
+.preview-services__body p  { max-width: 210px; color: #667080; font-size: 0.58rem; line-height: 1.6; }
+.preview-button { display: inline-block; margin-top: 0.8rem; padding: 0.5rem 0.7rem; border-radius: 3px; background: #125358; color: #fff; font-size: 0.55rem; font-weight: 700; }
+.preview-services__blocks { display: flex; gap: 0.4rem; margin-top: 1.2rem; }
+.preview-services__blocks span { flex: 1; height: 22px; border: 1px solid #dce4e5; border-radius: 3px; background: #fff; }
+
+/* ── Mockup restaurante ── */
+.preview-restaurant { min-height: 268px; padding: 0.8rem; color: #f9eee1; background: #29251f; }
+.preview-restaurant__nav strong { font-size: 0.7rem; letter-spacing: 1px; }
+.preview-restaurant__nav span   { color: #ddcbb4; }
+.preview-restaurant__body { position: relative; min-height: 230px; padding: 2rem 0.4rem 0; overflow: hidden; background: radial-gradient(ellipse at 90% 65%, rgba(175,112,58,0.3), transparent 55%); }
+.preview-restaurant__body > span { color: #cfad7c; font-size: 0.48rem; letter-spacing: 1.4px; }
+.preview-restaurant__body h3 { position: relative; z-index: 1; margin-top: 0.7rem; font-family: Georgia,serif; font-size: clamp(1.35rem,2.5vw,1.9rem); font-weight: 500; line-height: 1.1; }
+.preview-restaurant__plate { position: absolute; top: 4.5rem; right: -0.3rem; display: grid; place-items: center; width: 95px; height: 95px; border: 6px solid #dfd2bb; border-radius: 50%; background: #f5eee2; }
+.preview-restaurant__plate div { width: 58px; height: 58px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #e4b45e 0 12%, transparent 14%), radial-gradient(circle at 65% 60%, #8e4730 0 15%, transparent 17%), radial-gradient(circle at 55% 35%, #71905a 0 13%, transparent 15%), #d6b17b; }
+.preview-restaurant__button { position: relative; z-index: 1; display: inline-block; margin-top: 1rem; padding: 0.5rem 0.7rem; border: 1px solid #c6a36c; color: #f9eee1; font-size: 0.52rem; }
+
+/* ── Mockup tienda ── */
+.preview-store { min-height: 268px; padding: 0.8rem; color: #1c2838; background: #f6f5f1; }
+.preview-store__nav strong { font-size: 0.75rem; letter-spacing: 2px; }
+.preview-store__nav span   { font-size: 0.55rem; }
+.preview-store__body { padding-top: 1.4rem; }
+.preview-store__body > span { color: #777f8b; font-size: 0.48rem; letter-spacing: 1px; }
+.preview-store__body h3 { margin: 0.5rem 0 0.9rem; font-family: Georgia,serif; font-size: clamp(1.25rem,2.4vw,1.7rem); font-weight: 500; line-height: 1.1; }
+.preview-store__products { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0.4rem; }
+.preview-store__products > div { display: flex; flex-direction: column; gap: 0.25rem; }
+.preview-product { display: block; height: 62px; border-radius: 3px; background: #e0d5c6; }
+.preview-product--one   { background: linear-gradient(145deg,#e2d5c3,#b5a38d); }
+.preview-product--two   { background: linear-gradient(145deg,#d2d9d1,#879887); }
+.preview-product--three { background: linear-gradient(145deg,#e3d7d7,#b99a9b); }
+.preview-store__products small { color: #636c77; font-size: 0.45rem; }
+.preview-store__products b     { color: #1c2838; font-size: 0.5rem; }
+
+/* ── Info debajo del preview ── */
+.project-card__content {
+  display: flex; flex-direction: column; align-items: flex-start; padding: 1.5rem;
+}
+
+.project-card__label {
+  margin-bottom: 0.9rem;
+  background: var(--grad-main);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.7px;
+}
+
+.project-card__category { margin-bottom: 0.45rem; color: var(--text-gray); font-size: 0.8rem; }
+.project-card__content h3 { margin-bottom: 0.75rem; color: var(--white); font-size: 1.25rem; line-height: 1.4; }
+.project-card__content p  { margin-bottom: 1.5rem; color: var(--text-gray); font-size: 0.9rem; line-height: 1.75; }
+
+/* Enlace como botón degradado */
+.project-card__link {
+  display: flex; align-items: center; gap: 0.6rem; margin-top: auto;
+  padding: 0.65rem 1.3rem; border-radius: 8px;
+  font-size: 0.85rem; font-weight: 700;
+  color: #040d1e;
+  background: var(--grad-aqua);
+  box-shadow: 0 0 12px rgba(0,184,217,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.project-card__link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 22px rgba(0,255,225,0.5);
+}
+
+.project-card__link svg { flex-shrink: 0; transition: transform 0.3s; }
+.project-card__link:hover svg { transform: translateX(4px); }
+
+/* Responsive */
+@media (max-width: 1024px) { .projects-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+
+@media (max-width: 680px) {
+  .projects-section { padding: 4rem 1.25rem; }
+  .projects-heading { margin-bottom: 2.5rem; }
+  .projects-grid    { grid-template-columns: 1fr; gap: 1.5rem; }
+  .project-browser  { min-height: 280px; }
+  .preview-services, .preview-restaurant, .preview-store { min-height: 248px; }
+  .preview-services__body h3, .preview-restaurant__body h3, .preview-store__body h3 { font-size: 1.8rem; }
+}
