@@ -12,10 +12,14 @@ const MicroCrosses = () => {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
-    let W = window.innerWidth;
-    let H = document.documentElement.scrollHeight;
+    // Usar clientWidth/clientHeight para evitar el "respiro"
+    // causado por la barra del navegador móvil
+    let W = document.documentElement.clientWidth;
+    let H = window.screen.height; // alto de pantalla física, no cambia
     canvas.width  = W;
     canvas.height = H;
+    canvas.style.width  = W + 'px';
+    canvas.style.height = H + 'px';
 
     const isLight = () =>
       document.documentElement.getAttribute('data-theme') === 'light';
@@ -24,7 +28,10 @@ const MicroCrosses = () => {
     const COLORS_DARK  = ['#00FFE1', '#00CFC8', '#66FFF0', '#00F5B8', '#00B8D9'];
     const COLORS_LIGHT = ['#009B94', '#00B8B0', '#007A80', '#00A8D0', '#00909A'];
 
-    const COUNT = Math.min(180, Math.floor((W * H) / 9000));
+    const isMobile = W < 768;
+    const COUNT = isMobile
+      ? Math.min(50, Math.floor((W * H) / 18000))   // móvil: mitad de partículas
+      : Math.min(180, Math.floor((W * H) / 9000));
 
     const makeFirefly = () => {
       const colors = isLight() ? COLORS_LIGHT : COLORS_DARK;
@@ -59,8 +66,19 @@ const MicroCrosses = () => {
 
     let flies = Array.from({ length: COUNT }, makeFirefly);
 
+    // En móvil limitamos a ~30 FPS para ahorrar batería
+    const TARGET_FPS = isMobile ? 30 : 60;
+    const FRAME_MS   = 1000 / TARGET_FPS;
+    let lastTime = 0;
+
     let raf;
-    const draw = () => {
+    const draw = (timestamp) => {
+      raf = requestAnimationFrame(draw);
+
+      // Throttle FPS en móvil
+      if (timestamp - lastTime < FRAME_MS) return;
+      lastTime = timestamp;
+
       ctx.clearRect(0, 0, W, H);
 
       flies.forEach(f => {
@@ -84,19 +102,21 @@ const MicroCrosses = () => {
 
         ctx.save();
 
-        // — Halo exterior (glow difuso) —
-        const grd = ctx.createRadialGradient(
-          f.x, f.y, 0,
-          f.x, f.y, f.glowRadius
-        );
-        grd.addColorStop(0,   hexAlpha(f.color, f.alpha * 0.6));
-        grd.addColorStop(0.4, hexAlpha(f.color, f.alpha * 0.15));
-        grd.addColorStop(1,   hexAlpha(f.color, 0));
+        if (!isMobile) {
+          // Desktop: glow radial completo
+          const grd = ctx.createRadialGradient(
+            f.x, f.y, 0,
+            f.x, f.y, f.glowRadius
+          );
+          grd.addColorStop(0,   hexAlpha(f.color, f.alpha * 0.6));
+          grd.addColorStop(0.4, hexAlpha(f.color, f.alpha * 0.15));
+          grd.addColorStop(1,   hexAlpha(f.color, 0));
 
-        ctx.fillStyle = grd;
-        ctx.beginPath();
-        ctx.arc(f.x, f.y, f.glowRadius, 0, Math.PI * 2);
-        ctx.fill();
+          ctx.fillStyle = grd;
+          ctx.beginPath();
+          ctx.arc(f.x, f.y, f.glowRadius, 0, Math.PI * 2);
+          ctx.fill();
+        }
 
         // — Núcleo brillante —
         ctx.globalAlpha = f.alpha;
@@ -105,7 +125,7 @@ const MicroCrosses = () => {
         ctx.arc(f.x, f.y, f.size * 0.4, 0, Math.PI * 2);
         ctx.fill();
 
-        // — Punto de color alrededor del núcleo —
+        // — Punto de color —
         ctx.globalAlpha = f.alpha * 0.9;
         ctx.fillStyle   = f.color;
         ctx.beginPath();
@@ -114,24 +134,34 @@ const MicroCrosses = () => {
 
         ctx.restore();
       });
-
-      raf = requestAnimationFrame(draw);
     };
 
-    draw();
+    raf = requestAnimationFrame(draw);
 
+    let resizeTimer;
     const onResize = () => {
-      W = window.innerWidth;
-      H = document.documentElement.scrollHeight;
-      canvas.width  = W;
-      canvas.height = H;
-      const newCount = Math.min(180, Math.floor((W * H) / 9000));
-      flies = Array.from({ length: newCount }, makeFirefly);
+      // Debounce para ignorar cambios menores (barra del navegador móvil)
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const newW = document.documentElement.clientWidth;
+        // Solo recalcular si el ANCHO cambia (orientación real)
+        // Ignorar cambios solo de alto (barra del navegador)
+        if (newW === W) return;
+        W = newW;
+        H = window.screen.height;
+        canvas.width  = W;
+        canvas.height = H;
+        canvas.style.width  = W + 'px';
+        canvas.style.height = H + 'px';
+        const newCount = Math.min(180, Math.floor((W * H) / 9000));
+        flies = Array.from({ length: newCount }, makeFirefly);
+      }, 150);
     };
     window.addEventListener('resize', onResize);
 
     return () => {
       cancelAnimationFrame(raf);
+      clearTimeout(resizeTimer);
       window.removeEventListener('resize', onResize);
     };
   }, []);
@@ -141,9 +171,11 @@ const MicroCrosses = () => {
       ref={canvasRef}
       style={{
         position:      'fixed',
-        inset:         0,
-        width:         '100%',
-        height:        '100%',
+        top:           0,
+        left:          0,
+        /* Usar píxeles fijos vía JS — no % ni dvh para evitar
+           el "respiro" cuando la barra de navegación móvil
+           aparece y desaparece */
         pointerEvents: 'none',
         zIndex:        -1,
       }}
